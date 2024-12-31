@@ -11,11 +11,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-
+    
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       
+    - name: List build context files
+      run: ls -R
+      
     - run: docker buildx build -t app .
+    
+    - name: docker save Test
+      run: docker save app | tar -xO | less
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v4
