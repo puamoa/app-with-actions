@@ -40,5 +40,5 @@ jobs:
       run: |
         aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/${{ secrets.ECR_ID }}
         docker build -t $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG .
-        docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
-        docker run --rm $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:latest ls /
+        # docker push $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:$IMAGE_TAG
+        # docker run --rm $REGISTRY/$REGISTRY_ALIAS/$REPOSITORY:latest ls /
