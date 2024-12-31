@@ -1,0 +1,21 @@
+name: Test Docker Image
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-docker:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Login to ECR
+      run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/${{ secrets.ECR_ID }}
+
+    - name: Pull Docker Image
+      run: docker pull public.ecr.aws/${{ secrets.ECR_ID }}/first-ecr:latest
+
+    - name: Run Docker Image
+      run: docker run --rm public.ecr.aws/${{ secrets.ECR_ID }}/first-ecr:latest ls /
